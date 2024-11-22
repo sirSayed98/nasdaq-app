@@ -19,6 +19,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    
+    "types": ["vitest/globals"],
 
     /* paths */
     "baseUrl": "./",
@@ -28,5 +30,5 @@
       "@pages/*": ["src/pages/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src","src/vitest.setup.ts"]
 }
