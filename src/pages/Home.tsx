@@ -1,7 +1,13 @@
-import SplashScreen from '../components/Splash'
+// ui-components
+import TickerWrapper from '@components/Ticker/TickerWrapper'
+
+// context
+import TickerState from '@context/ticker/state'
 const Home = () => {
   return (
-    <SplashScreen />
+    <TickerState>
+      <TickerWrapper />
+    </TickerState>
   )
 }
 
