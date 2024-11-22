@@ -39,7 +39,7 @@ const Search: React.FC<SearchProps> = ({ search, isDisabled }) => {
         <SearchIcon color="action" />
         <TextField
           variant="standard"
-          placeholder="Search..."
+          placeholder={isDisabled? "Try again after 1 min":"Search..."}
           sx={{ ml: 1, flex: 1 }}
           onChange={handleInputChange}
           disabled={isDisabled}
