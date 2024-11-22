@@ -13,9 +13,10 @@ import TickerCard from './TickerCard';
 interface TickerListProps {
   tickerList: Ticker[];
   isLoadingMore: boolean;
+  searchText: string
 }
 
-const TickerList: React.FC<TickerListProps> = ({ tickerList, isLoadingMore }) => {
+const TickerList: React.FC<TickerListProps> = ({ tickerList, isLoadingMore, searchText }) => {
   return (
     <>
       <Box padding={4}>
@@ -39,10 +40,10 @@ const TickerList: React.FC<TickerListProps> = ({ tickerList, isLoadingMore }) =>
               justifyContent: 'center',
               width: '100vw'
             }}
-          ><CircularProgress  />
+          ><CircularProgress />
           </Box>}
           {
-            tickerList.length === 0  && <NoResultFound />
+            tickerList.length === 0 && <NoResultFound isSearchResults={searchText !== ''} />
           }
         </Grid>
       </Box>

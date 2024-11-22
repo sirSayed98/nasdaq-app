@@ -2,7 +2,12 @@
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import { Box, Typography } from '@mui/material';
 
-const NoResultFound = () => {
+// interfaces
+interface NoResultFoundProps {
+  isSearchResults: boolean;
+}
+
+const NoResultFound: React.FC<NoResultFoundProps> = ({ isSearchResults }) => {
   return (
     <Box
       display="flex"
@@ -22,10 +27,14 @@ const NoResultFound = () => {
       <Typography variant="h6" gutterBottom>
         No results found
       </Typography>
-      <Typography variant="body2" sx={{ mb: 3 }}>
-        Try searching for a different stock or check your filters.
-      </Typography>
       
+      {
+        isSearchResults && (<Typography variant="body2" sx={{ mb: 3 }}>
+          Try searching for a different stock or check your filters.
+        </Typography>)
+      }
+
+
     </Box>
   );
 };

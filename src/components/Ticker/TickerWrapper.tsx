@@ -10,10 +10,10 @@ import { STATUS_CODE_HIT_LIMIT } from '@context/constants';
 import TickerContext from '@context/ticker/context';
 
 // ui-components
-import TickerList from './TickerList';
 import Loader from '@components/common/Loader/Loader';
 import Navbar from '@components/common/Navbar/Navbar';
 import Search from '@components/common/Search/Search';
+import TickerList from './TickerList';
 
 
 const TickerWrapper = () => {
@@ -23,7 +23,14 @@ const TickerWrapper = () => {
     throw new Error("TickerContext must be used within a TickerState provider");
   }
 
-  const { fetchTickerList, tickerList, isLoading, isLoadingMore, noMore, statusCode } = tickerContext;
+  const { fetchTickerList,
+    tickerList,
+    isLoading,
+    isLoadingMore,
+    noMore,
+    statusCode,
+    searchText 
+  } = tickerContext;
 
   const observerRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -75,6 +82,7 @@ const TickerWrapper = () => {
         <TickerList
           tickerList={tickerList}
           isLoadingMore={isLoadingMore}
+          searchText={searchText}
         />
       }
       <div ref={observerRef} />
