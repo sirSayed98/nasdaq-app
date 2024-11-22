@@ -40,7 +40,7 @@ const TickerState: React.FC<{ children: React.ReactNode }> = (props) => {
   const fetchTickerList = async (searchText: string = '') => {
 
     let requestUrl = `${BASE_URL}tickers`
-    const limit = 10;
+    const limit = 20;
 
     const resetNextUrl = searchText && (searchText !== state.searchText)
 
