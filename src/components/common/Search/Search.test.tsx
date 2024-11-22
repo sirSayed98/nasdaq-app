@@ -2,10 +2,11 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import Search from './Search'; // Adjust the path as necessary
 describe('Search Component', () => {
-  let searchMock: vi.Mock;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let searchMock: any;
 
   beforeEach(() => {
-    searchMock = vi.fn();  
+     searchMock = vi.fn();  
   });
 
   it('should render correctly and set the placeholder text when isDisabled is false', () => {
