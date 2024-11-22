@@ -3,7 +3,7 @@
 import Snackbar from '@mui/material/Snackbar';
 
 // react-libs
-import { useContext, useEffect, useRef } from 'react';
+import { useCallback, useContext, useEffect, useRef } from 'react';
 
 // context
 import { STATUS_CODE_HIT_LIMIT } from '@context/constants';
@@ -23,7 +23,8 @@ const TickerWrapper = () => {
     throw new Error("TickerContext must be used within a TickerState provider");
   }
 
-  const { fetchTickerList,
+  const { 
+    fetchTickerList,
     tickerList,
     isLoading,
     isLoadingMore,
@@ -34,37 +35,38 @@ const TickerWrapper = () => {
   } = tickerContext;
 
   const observerRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
 
-    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+  const handleIntersection = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
       const entry = entries[0];
       if (
-        entry.isIntersecting
-        && !isLoading && !isLoadingMore && !noMore
-        && statusCode !== STATUS_CODE_HIT_LIMIT && !hasError
+        entry.isIntersecting &&
+        !isLoading &&
+        !isLoadingMore &&
+        !noMore &&
+        statusCode !== STATUS_CODE_HIT_LIMIT &&
+        !hasError
       ) {
         fetchTickerList();
       }
-    };
+    },
+    [fetchTickerList, isLoading, isLoadingMore, noMore, statusCode, hasError]
+  );
+
+  useEffect(() => {
+    if (!observerRef.current) return;
 
     const observer = new IntersectionObserver(handleIntersection, {
       rootMargin: '100px',
       threshold: 1.0,
     });
 
-    // Observe the bottom element
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
-    }
+    observer.observe(observerRef.current);
 
     return () => {
-      if (observerRef.current) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        observer.unobserve(observerRef.current);
-      }
+      observer.disconnect();
     };
-
-  }, [fetchTickerList, isLoading, isLoadingMore, noMore, statusCode,hasError]);
+  }, [handleIntersection]);
 
   return (
     <>

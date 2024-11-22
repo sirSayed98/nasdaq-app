@@ -49,4 +49,4 @@ const Search: React.FC<SearchProps> = ({ search, isDisabled }) => {
   );
 };
 
-export default Search;
+export default React.memo(Search);

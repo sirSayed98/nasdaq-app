@@ -11,6 +11,7 @@ import React, { ReactNode } from "react";
 interface NavbarProps {
   children: ReactNode;  
 }
+
 const Navbar:  React.FC<NavbarProps> = ({ children }) => {
   return (
     <AppBar position="static" color="primary">
@@ -35,4 +36,4 @@ const Navbar:  React.FC<NavbarProps> = ({ children }) => {
   );
 };
 
-export default Navbar;
+export default React.memo(Navbar);
