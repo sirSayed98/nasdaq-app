@@ -29,7 +29,8 @@ const TickerWrapper = () => {
     isLoadingMore,
     noMore,
     statusCode,
-    searchText 
+    hasError,
+    searchText,
   } = tickerContext;
 
   const observerRef = useRef<HTMLDivElement | null>(null);
@@ -40,7 +41,7 @@ const TickerWrapper = () => {
       if (
         entry.isIntersecting
         && !isLoading && !isLoadingMore && !noMore
-        && statusCode !== STATUS_CODE_HIT_LIMIT
+        && statusCode !== STATUS_CODE_HIT_LIMIT && !hasError
       ) {
         fetchTickerList();
       }
@@ -63,14 +64,16 @@ const TickerWrapper = () => {
       }
     };
 
-  }, [fetchTickerList, isLoading, isLoadingMore, noMore, statusCode]);
+  }, [fetchTickerList, isLoading, isLoadingMore, noMore, statusCode,hasError]);
 
   return (
     <>
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={statusCode === STATUS_CODE_HIT_LIMIT}
-        message="You hit rate limit try again in one minute"
+        open={hasError}
+        message={
+          statusCode === STATUS_CODE_HIT_LIMIT ?
+            "You hit rate limit try again in one minute" : "Something went wrong please try agian later"}
       />
       <Navbar>
         <Search
