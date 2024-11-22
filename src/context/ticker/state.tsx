@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { BASE_URL, DURATION_HIT_LIMIT, STATUS_CODE_HIT_LIMIT } from "@context/constants";
 import axios from "axios";
 import { useReducer } from "react";
-import { BASE_URL, DURATION_HIT_LIMIT, STATUS_CODE_HIT_LIMIT } from "@context/constants";
 
 import {
   LOAD_TICKER_LIST,
@@ -71,7 +71,7 @@ const TickerState: React.FC<{ children: React.ReactNode }> = (props) => {
         return {
           name: result.name,
           ticker: result.ticker,
-          id: `${result.name}+${result.ticker}`
+          id: `${result.name}+${result.ticker}+${result.last_updated_utc}`
         }
       })
 
