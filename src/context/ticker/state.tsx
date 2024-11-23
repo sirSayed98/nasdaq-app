@@ -36,8 +36,13 @@ const TickerState: React.FC<{ children: React.ReactNode }> = (props) => {
 
   const [state, dispatch] = useReducer(TickerReducer, initialState);
 
-
   const fetchTickerList = async (searchText: string = '') => {
+
+    if (state.isLoading ||
+      state.isLoadingMore ||
+      state.noMore ||
+      state.statusCode === STATUS_CODE_HIT_LIMIT ||
+      state.hasError) return
 
     let requestUrl = `${BASE_URL}tickers`
     const limit = 20;
@@ -112,7 +117,6 @@ const TickerState: React.FC<{ children: React.ReactNode }> = (props) => {
         statusCode: state.statusCode,
         hasError: state.hasError,
         searchText: state.searchText,
-        noMore: state.noMore,
         nextUrl: state.nextUrl,
         fetchTickerList,
       }}

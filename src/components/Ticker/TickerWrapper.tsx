@@ -23,12 +23,11 @@ const TickerWrapper = () => {
     throw new Error("TickerContext must be used within a TickerState provider");
   }
 
-  const { 
+  const {
     fetchTickerList,
     tickerList,
     isLoading,
     isLoadingMore,
-    noMore,
     statusCode,
     hasError,
     searchText,
@@ -40,17 +39,12 @@ const TickerWrapper = () => {
     (entries: IntersectionObserverEntry[]) => {
       const entry = entries[0];
       if (
-        entry.isIntersecting &&
-        !isLoading &&
-        !isLoadingMore &&
-        !noMore &&
-        statusCode !== STATUS_CODE_HIT_LIMIT &&
-        !hasError
+        entry.isIntersecting 
       ) {
         fetchTickerList();
       }
     },
-    [fetchTickerList, isLoading, isLoadingMore, noMore, statusCode, hasError]
+    [fetchTickerList]
   );
 
   useEffect(() => {

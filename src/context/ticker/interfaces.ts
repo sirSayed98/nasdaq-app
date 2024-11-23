@@ -22,7 +22,6 @@ export interface TickerContextType {
   hasError: boolean;
   statusCode: number;
   searchText: string,
-  noMore: boolean;
   nextUrl: string;
   fetchTickerList: () => Promise<void>;
 }
